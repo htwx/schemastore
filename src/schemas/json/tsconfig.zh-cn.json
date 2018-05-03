@@ -1,0 +1,495 @@
+{
+  "title": "CtsScript 编译选项配置文件",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+
+  "definitions": {
+    "filesDefinition": {
+      "properties": {
+        "files": {
+          "description": "如果tsconfig.json中不存在'files'或'include'属性, 编译器将默认包含目录及子目录中的所有文件,不包括 'exclude' 所指定的文件.如果指定了 'files' 属性, 则包括'files'和'include'中指定的文件.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "excludeDefinition": {
+      "properties": {
+        "exclude": {
+          "description": "指定要从编译中排除的文件列表.'exclude'属性只影响通过'include'属性包括的文件, 而不影响'files'属性包含的文件.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "includeDefinition": {
+      "properties": {
+        "include": {
+          "description": "指定与要包括在编译中的文件组.如果tsconfig.json 中不存在'files'或'include'属性, 编译器将默认为'include'所包含的目录和子目录中的所有文件, 而不包括'exclude'所排除的文件",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "compileOnSaveDefinition": {
+      "properties": {
+        "compileOnSave": {
+          "description": "启用'保存时编译'",
+          "type": "boolean"
+        }
+      }
+    },
+    "extendsDefinition": {
+      "properties": {
+        "extends": {
+          "description": "设定要继承的基础编译选项文件路径",
+          "type": "string"
+        }
+      }
+    },
+    "compilerOptionsDefinition": {
+      "properties": {
+        "compilerOptions": {
+          "type": "object",
+          "description": "设定编译器选项.",
+          "properties": {
+            "charset": {
+              "description": "设定输入文件的字符集.",
+              "type": "string"
+            },
+            "declaration": {
+              "description": "生成类型定义文件 .d.cts 文件.",
+              "type": "boolean"
+            },
+            "declarationDir": {
+              "type": "string",
+              "description": "设定声明文件生成目录."
+            },
+            "unEscapedUnicode": {
+              "type": "boolean",
+              "description": "不转义Unicode文字."
+            },
+            "useUnicodeKeywords": {
+              "type": "boolean",
+              "description": "使用Unicode字符关键字."
+            },
+            "diagnostics": {
+              "description": "显示诊断信息.",
+              "type": "boolean"
+            },
+            "emitBOM": {
+              "description": "在输出文件的开始处发出 UTF-8 字节顺序标记(bom).",
+              "type": "boolean"
+            },
+            "emitDeclarationOnly": {
+                "description": "仅输出声明文件",
+                "type": "boolean"
+            },
+            "inlineSourceMap": {
+              "description": "生成单独的sourcemaps文件,而不是将每sourcemaps生成不同的文件",
+              "type": "boolean"
+            },
+            "inlineSources": {
+              "description": "将代码与sourcemaps生成到一个文件中，要求同时设置了 --inlineSourceMap或 --sourceMap属性。",
+              "type": "boolean"
+            },
+            "jsx": {
+              "description": "设置 JSX 生成: 'preserve', 'react', or 'react-native'.",
+              "enum": [ "preserve", "react", "react-native" ]
+            },
+            "reactNamespace": {
+              "description": "指定针对'react' JSX 输出时 createElement 和 __spread 调用的对象。",
+              "type": "string"
+            },
+            "listFiles": {
+              "description": "编译过程中打印文件名",
+              "type": "boolean"
+            },
+            "mapRoot": {
+              "description": "指定调试器应定位映射文件而不是生成的js文件位置",
+              "type": "string"
+            },
+            "module": {
+              "description": "设置模块生成模式: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015' or 'esnext'.",
+              "type": "string",
+              "anyOf": [
+                {
+                  "enum": [ "commonjs", "amd", "umd", "system", "es6", "es2015", "esnext", "none" ]
+                }, {
+                  "pattern": "^([cC][oO][mM][mM][oO][nN][jJ][sS]|[aAuU][mM][dD]|[sS][yY][sS][tT][eE][mM]|[eE][sS]([356]|(201[567])|[nN][eE][xX][tT])|[nN][oO][nN][eE])$"
+                }
+              ]
+            },
+            "newLine": {
+              "description": "当生成文件时指定行结束符：'crlf'（windows）或 'lf'（unix）。",
+              "type": "string",
+              "anyOf": [
+                {
+                  "enum": [
+                    "CRLF",
+                    "LF"
+                  ]
+                },
+                {
+                  "pattern": "^(CRLF|LF|crlf|lf)$"
+                }
+              ]
+            },
+            "noEmit": {
+              "description": "不输出文件.",
+              "type": "boolean"
+            },
+            "noEmitHelpers": {
+              "description": "不生成自定义助手函数 (如编译输出中的 __extends).",
+              "type": "boolean"
+            },
+            "noEmitOnError": {
+              "description": "如果有错误不输出文件",
+              "type": "boolean"
+            },
+            "noImplicitAny": {
+              "description": "报告包含隐式的任意类型错误",
+              "type": "boolean"
+            },
+            "noImplicitThis": {
+              "description": "报告'本体'表达式的值为'任意'类型错误",
+              "type": "boolean"
+            },
+            "noUnusedLocals": {
+              "description": "报告未使用的局部变量错误",
+              "type": "boolean"
+            },
+            "noUnusedParameters": {
+              "description": "报告未使用的参数错误",
+              "type": "boolean"
+            },
+            "noLib": {
+              "description": "不包括默认支持库文件,如: (lib.zh-cn.d.cts 或 lib.d.ts).",
+              "type": "boolean"
+            },
+            "noResolve": {
+              "description": "不要将三重斜线引用或模块导入目标添加到已编译文件的列表中.",
+              "type": "boolean"
+            },
+            "noStrictGenericChecks": {
+              "description": "在函数类型中禁用对泛型签名的严格检查.",
+              "type": "boolean"
+            },
+            "skipDefaultLibCheck": {
+              "type": "boolean"
+            },
+            "skipLibCheck": {
+              "description": "跳过声明文件的类型检查. 要求文稿2.0 版或更高版本.",
+              "type": "boolean"
+            },
+            "outFile": {
+              "description": "输出文件,将合并源码为一个文件输出",
+              "type": "string"
+            },
+            "outDir": {
+              "description": "自动输出的目录",
+              "type": "string"
+            },
+            "preserveConstEnums": {
+              "description": "不要在生成的代码中删除 const 枚举声明.",
+              "type": "boolean"
+            },
+            "preserveSymlinks": {
+              "description": "不把符号链接解析为其真实路径；将符号链接文件视为真正的文件.",
+              "type": "boolean"
+            },
+            "preserveWatchOutput": {
+              "description": "在监视模式下保留过时的控制台输出, 而不是清除屏幕.",
+              "type": "boolean"
+            },
+            "pretty": {
+              "description": "使用颜色和上下文风格打印错误和消息 (实验).",
+              "type": "boolean"
+            },
+            "removeComments": {
+              "description": "不输出注释",
+              "type": "boolean"
+            },
+            "rootDir": {
+              "description": "指定输入文件的根目录,用于控制输出目录结构的 --outDir.",
+              "type": "string"
+            },
+            "isolatedModules": {
+              "description": "无条件地为未解析的文件发出导入。",
+              "type": "boolean"
+            },
+            "sourceMap": {
+              "description": "生成源码映射文件'.map'",
+              "type": "boolean"
+            },
+            "sourceRoot": {
+              "description": "指定调试器应定位输出的映射文件而不是源码位置.",
+              "type": "string"
+            },
+            "suppressExcessPropertyErrors": {
+              "description": "取消对象字面量的超额属性检查.",
+              "type": "boolean"
+            },
+            "suppressImplicitAnyIndexErrors": {
+              "description": "取消索引缺少索引签名的对象的 noImplicitAny 错误",
+              "type": "boolean"
+            },
+            "stripInternal": {
+              "description": "不要为具有 '@internal' 注释的代码输出声明代码.",
+              "type": "boolean"
+            },
+            "target": {
+              "description": "指定ECMAScript目标版本,允许值为 'es3', 'es5', 'es6', 'es2015', 'es2016', 'es2017', 'es2018' or 'esnext'.",
+              "type": "string",
+              "default": "es3",
+              "anyOf": [
+                {
+                  "enum": [
+                    "es3",
+                    "es5",
+                    "es6",
+                    "es2015",
+                    "es2016",
+                    "es2017",
+                    "es2018",
+                    "esnext"
+                  ]
+                }, {
+                  "pattern": "^([eE][sS]([356]|(201[5678])|[nN][eE][xX][tT]))$"
+                }
+              ]
+            },
+            "watch": {
+              "description": "监控输入文件.",
+              "type": "boolean"
+            },
+            "experimentalDecorators": {
+              "description": "启用对 ES7装饰 的实验支持.",
+              "type": "boolean"
+            },
+            "emitDecoratorMetadata": {
+              "description": "输出 design-type元数据为装饰声明.",
+              "type": "boolean"
+            },
+            "moduleResolution": {
+              "description": "指定模块解析策略:'node'(Node)或'classic'.",
+              "type": "string",
+              "anyOf": [
+                {
+                  "enum": [
+                    "classic",
+                    "node"
+                  ]
+                },
+                {
+                  "pattern": "^(([Nn]ode)|([Cc]lassic))$"
+                }
+              ],
+              "default": "classic"
+            },
+            "allowUnusedLabels": {
+              "type": "boolean",
+              "description": "不报告未使用标签的错误."
+            },
+            "noImplicitReturns": {
+              "description": "报告隐式返回",
+              "type": "boolean"
+            },
+            "noFallthroughCasesInSwitch": {
+              "description": "报告贯穿假如语句错误.",
+              "type": "boolean"
+            },
+            "allowUnreachableCode": {
+              "description": "报告无法访问代码错误.",
+              "type": "boolean"
+            },
+            "forceConsistentCasingInFileNames": {
+              "description": "不允许对同一文件进行不一致的大小写引用.",
+              "type": "boolean"
+            },
+            "baseUrl": {
+              "description": "用于解析非相关模块名称的基目录.",
+              "type": "string"
+            },
+            "paths": {
+              "description": "指定要计算的相对于 baseUrl 选项的路径映射.",
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "description": "要相对于 baseUrl 选项计算的路径映射."
+                }
+              }
+            },
+            "plugins": {
+              "description": "要加载的语言服务器插件列表,要求文稿2.3 版或更高版本.",
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "插件名.",
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "rootDirs": {
+              "description": "指定解析模块时要使用的根目录列表.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "typeRoots": {
+              "description": "指定要包括的类型定义文件的目录列表.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "types": {
+              "description": "要包括在编译中的类型声明文件.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "traceResolution": {
+              "description": "启用名称解析过程的跟踪.",
+              "type": "boolean"
+            },
+            "allowJs": {
+              "description": "允许编译 javascript 文件.",
+              "type": "boolean"
+            },
+            "allowSyntheticDefaultImports": {
+              "description": "允许不带默认导出的模块的默认导入.这不影响代码发出, 只是类型检查.",
+              "type": "boolean"
+            },
+            "noImplicitUseStrict": {
+              "description": "在模块输出中不要发出 'use strict' 指令.",
+              "type": "boolean"
+            },
+            "listEmittedFiles": {
+              "description": "启用列出所有发出的文件.",
+              "type": "boolean"
+            },
+            "disableSizeLimit": {
+              "description": "禁用 JavaScript 项目的大小限制.",
+              "type": "boolean",
+              "default": false
+            },
+            "lib": {
+              "description": "指定要包括在编译中的支持库文件.",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [ "es5", "es6", "es2015", "es7", "es2016", "es2017", "es2018", "esnext", "dom", "dom.iterable", "webworker", "scripthost", "es2015.core", "es2015.collection", "es2015.generator", "es2015.iterable",
+                        "es2015.promise", "es2015.proxy", "es2015.reflect", "es2015.symbol", "es2015.symbol.wellknown", "es2016.array.include", "es2017.object", "es2017.sharedmemory", "es2017.string", "es2017.typedarrays", "es2018.promise", "es2018.regexp", "esnext.array", "esnext.asynciterable",
+                        "es5.zh-cn", "es6.zh-cn", "es2015.zh-cn", "es7.zh-cn", "es2016.zh-cn", "es2017.zh-cn", "es2018.zh-cn", "esnext.zh-cn", "dom.zh-cn", "dom.zh-cn.iterable", "webworker.zh-cn", "scripthost.zh-cn", "es2015.zh-cn.core", "es2015.zh-cn.collection", "es2015.zh-cn.generator", "es2015.zh-cn.iterable",
+                        "es2015.zh-cn.promise", "es2015.zh-cn.proxy", "es2015.zh-cn.reflect", "es2015.zh-cn.symbol", "es2015.zh-cn.symbol.wellknown", "es2016.zh-cn.array.include", "es2017.zh-cn.object", "es2017.zh-cn.sharedmemory", "es2017.zh-cn.string", "es2017.zh-cn.typedarrays", "es2018.zh-cn.promise", "es2018.zh-cn.regexp", "esnext.zh-cn.array", "esnext.zh-cn.asynciterable"]
+              }
+            },
+            "strictNullChecks": {
+              "description": "启用严格的空检查.",
+              "type": "boolean"
+            },
+            "maxNodeModuleJsDepth": {
+              "description": "要在 node_modules 下搜索并加载 JavaScript 文件的最大依赖项深度.仅适用于 -allowJs.",
+              "type": "number",
+              "default": 0
+            },
+            "importHelpers": {
+              "description": "引入输出助手 (e.g. '__extends', '__rest', etc..) from tslib.",
+              "type": "boolean"
+            },
+            "jsxFactory": {
+              "description": "指定当目标反应 JSX 发出时使用的 JSX 工厂函数, e.g. 'React.createElement' or 'h'.",
+              "type": "string",
+              "default": "React.createElement"
+            },
+            "alwaysStrict": {
+              "description": "在严格模式下分析, 并对每个源文件发出 'use strict'.",
+              "type": "boolean"
+            },
+            "strict": {
+              "description": "启用所有严格类型检查选项",
+              "type": "boolean"
+            },
+            "downlevelIteration": {
+              "description": "为 迭代器 提供全面支持.",
+              "type": "boolean"
+            },
+            "checkJs": {
+              "description": "报告 .js 文件中的错误",
+              "type": "boolean"
+            },
+            "strictFunctionTypes": {
+              "description": "禁用函数类型的 bivariant 参数检查.",
+              "type": "boolean"
+            },
+            "strictPropertyInitialization": {
+              "description": "确保在构造函数中初始化未定义的类属性. Requires TypeScript version 2.7 or later.",
+              "type": "boolean"
+            },
+            "esModuleInterop": {
+              "description": "输出 '__importStar' and '__importDefault' 助手 为运行时 babel  生态系统和启用 '--allowSyntheticDefaultImports'类型系统兼容性.",
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "typeAcquisitionDefinition": {
+      "properties": {
+        "typeAcquisition": {
+          "type": "object",
+          "description": "此项目的自动类型获取选项.",
+          "properties": {
+            "enable": {
+              "description": "启用自动类型获取",
+              "type": "boolean",
+              "default": false
+            },
+            "include": {
+              "description": "指定要包括在自动类型获取中的类型声明的列表. Ex. [\"jquery\", \"lodash\"]",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "exclude": {
+              "description": "指定要从自动类型获取中排除的类型声明列表. Ex. [\"jquery\", \"lodash\"]",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "type": "object",
+  "allOf": [
+    { "$ref": "#/definitions/compilerOptionsDefinition" },
+    { "$ref": "#/definitions/compileOnSaveDefinition" },
+    { "$ref": "#/definitions/typeAcquisitionDefinition" },
+    { "$ref": "#/definitions/extendsDefinition" },
+    {
+      "anyOf": [
+        { "$ref": "#/definitions/filesDefinition" },
+        { "$ref": "#/definitions/excludeDefinition" },
+        { "$ref": "#/definitions/includeDefinition" }
+      ]
+    }
+  ]
+}
